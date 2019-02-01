@@ -11,3 +11,16 @@ https://qiita.com/NotFounds/items/4707bacd5934f6191c9d#%E5%95%8F%E9%A1%8C%E6%A6%
 [output]
 N
 """
+
+# Answer
+
+# input
+p1, p2, p3 = map(int, input().split())
+
+def dfs(start):
+    que = [[start]]
+    while que:
+        path = que.pop()
+        now = path[-1]
+        if now == int(p1 / 2):
+            print()
