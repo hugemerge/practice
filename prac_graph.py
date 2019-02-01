@@ -49,16 +49,16 @@ def bf_search(start, goal):
 
 def bf_search2(start, goal):
     que = [[start]]
-    while len(que) > 0:
-        path = que.pop(0) # ロケット鉛筆!!!
+    while que:
+        path = que.pop(0) # ロケット鉛筆
         now = path[-1]
         if now == goal:
             print(path)
-        else:
-            for x in adjacent[now]:
-                if not x in path:
-                    que.append(path + [x])
-                print(path)
+            # return
+
+        for x in adjacent[now]:
+            if not x in path:
+                que.append(path + [x])
 
 
 if __name__ == "__main__":
