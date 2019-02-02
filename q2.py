@@ -15,15 +15,45 @@ N
 # Answer
 
 # input
-containers = map(int, input().split())
+containers = list(map(int, input().split()))
+goal = int(containers[0] / 2)
 
-def dfs(start):
-    que = [[start, 0, 0]]
+def bfs(start):
+    que = [[start]]
     while que:
-        path = que.pop()
+        path = que.pop(0)
         now = path[-1]
-        if now == int(start / 2):
-            print(path)
+        for p in now:
+            if p == goal:
+                print(path)
+                return
 
-        for n in containers:
-            que.append(n)
+        for n in next_state(now):
+            if n in path:
+                continue
+            que.append(path + [n])
+
+def next_state(state):
+    states = []
+    for i,p in enumerate(state):
+        if p < 1: continue
+        for n in [m for m in [0, 1, 2] if i != m]:
+            # p を state[n] に 移動する
+            state_updated = state[:]
+            orig = p
+            move_to = state[n]
+            max_move_to = containers[n]
+            # check
+            if orig > max_move_to - move_to:
+                state_updated[i] = orig - (max_move_to - move_to)
+                state_updated[n] = max_move_to
+            else:
+                state_updated[i] = 0
+                state_updated[n] = move_to + orig
+
+            states.append(state_updated)
+
+    return states
+
+
+bfs([containers[0], 0, 0])
