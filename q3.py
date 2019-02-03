@@ -40,3 +40,42 @@ c(R,1)c(R,2) … c(R,C)
 11
 
 """
+
+# Answer
+
+# input
+r, c = map(int, input().split())
+s_y, s_x = map(int, input().split())
+g_y, g_x = map(int, input().split())
+maze = []
+for _ in range(r):
+    maze.append(input())
+
+# main
+start = (s_y-1, s_x-1)
+goal = (g_y-1, g_x-1)
+
+def bfs(s):
+    que = [[s]]
+    while que:
+        path = que.pop(0)
+        now = path[-1]
+        if now == goal:
+            print(path)
+            print(len(path) - 1)
+            return
+
+        for n in go_to_next(now):
+            n_y, n_x = n
+            if maze[n_y][n_x] == "#":
+                continue
+            if n not in path:
+                que.append(path + [n])
+
+def go_to_next(y_x):
+    y, x = y_x
+    return [(y, x+1), (y, x-1), (y-1, x), (y+1, x)]
+
+
+# output
+bfs(start)
